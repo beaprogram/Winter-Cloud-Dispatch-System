@@ -1,46 +1,86 @@
-# Getting Started with Create React App
+# Winter Cloud Dispatch System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern web application built with React and TypeScript that provides a secure, cloud authenticated dispatch management interface. The project demonstrates a production oriented front end architecture with strong typing, container based deployment, and integration with AWS Cognito for identity and access management.
+
+## Overview
+
+Winter Cloud Dispatch System is designed to serve as the front end for a dispatch and operations workflow. It focuses on three core engineering goals: a maintainable component model in TypeScript, a secure authentication flow backed by AWS Cognito, and a reproducible build pipeline through Docker for consistent deployment across environments.
+
+## Key Features
+
+- Strongly typed React components written in TypeScript for safer refactoring and clearer contracts
+- Secure user authentication and session management through AWS Cognito
+- Containerized build configuration with Docker for reliable deployment
+- Modular project structure suitable for scaling additional dispatch features
+- Production ready build pipeline using Create React App with optimized output
+
+## Tech Stack
+
+| Layer | Technology |
+| --- | --- |
+| Language | TypeScript |
+| Framework | React |
+| Authentication | AWS Cognito |
+| Tooling | Create React App, Yarn |
+| Deployment | Docker |
+
+## Project Structure
+
+```
+winter-cloud-dispatch-system/
+public/             Static assets and HTML shell
+src/                React components, hooks, and TypeScript modules
+Dockerfile          Container build definition
+package.json        Dependencies and scripts
+tsconfig.json       TypeScript compiler configuration
+yarn.lock           Locked dependency versions
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18 or later
+- Yarn
+- Docker (optional, for container builds)
+
+### Installation
+
+```bash
+git clone https://github.com/beaprogram/Winter-Cloud-Dispatch-System.git
+cd Winter-Cloud-Dispatch-System
+yarn install
+```
+
+### Running Locally
+
+```bash
+yarn start
+```
+
+The application will be available at http://localhost:3000.
+
+### Building for Production
+
+```bash
+yarn build
+```
+
+### Running with Docker
+
+```bash
+docker build -t winter-cloud-dispatch-system .
+docker run -p 3000:3000 winter-cloud-dispatch-system
+```
 
 ## Available Scripts
 
-In the project directory, you can run:
+| Command | Description |
+| --- | --- |
+| `yarn start` | Run the development server |
+| `yarn test` | Run the test suite |
+| `yarn build` | Generate an optimized production build |
 
-### `yarn start`
+## Author
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Developed by Arup Halder. For questions or collaboration, please reach out through GitHub.
