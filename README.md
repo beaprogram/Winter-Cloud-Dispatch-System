@@ -1,86 +1,75 @@
 # Winter Cloud Dispatch System
 
-A modern web application built with React and TypeScript that provides a secure, cloud authenticated dispatch management interface. The project demonstrates a production oriented front end architecture with strong typing, container based deployment, and integration with AWS Cognito for identity and access management.
+[![CI](https://github.com/beaprogram/Winter-Cloud-Dispatch-System/actions/workflows/ci.yml/badge.svg)](https://github.com/beaprogram/Winter-Cloud-Dispatch-System/actions/workflows/ci.yml)
 
-## Overview
+A React and TypeScript authentication prototype for a future cloud dispatch interface. The current repository demonstrates AWS Cognito sign-up, sign-in, confirmation, sign-out, and custom-challenge handling with MobX state management.
 
-Winter Cloud Dispatch System is designed to serve as the front end for a dispatch and operations workflow. It focuses on three core engineering goals: a maintainable component model in TypeScript, a secure authentication flow backed by AWS Cognito, and a reproducible build pipeline through Docker for consistent deployment across environments.
+## Current scope
 
-## Key Features
+Implemented:
 
-- Strongly typed React components written in TypeScript for safer refactoring and clearer contracts
-- Secure user authentication and session management through AWS Cognito
-- Containerized build configuration with Docker for reliable deployment
-- Modular project structure suitable for scaling additional dispatch features
-- Production ready build pipeline using Create React App with optimized output
+- Cognito email sign-up and confirmation.
+- Sign-in and sign-out with AWS Amplify.
+- Custom authentication challenge handling for security questions and a Caesar-cipher exercise.
+- MobX-backed view and form state.
+- A reproducible static production build and Nginx container image.
 
-## Tech Stack
+Not implemented:
 
-| Layer | Technology |
-| --- | --- |
-| Language | TypeScript |
-| Framework | React |
-| Authentication | AWS Cognito |
-| Tooling | Create React App, Yarn |
-| Deployment | Docker |
+- Dispatch jobs, drivers, vehicles, routes, scheduling, or operational dashboards.
+- A backend API or persistent dispatch data model.
+- A hosted public demo.
+- Automated component tests beyond the Create React App test harness.
 
-## Project Structure
+Calling this repository an authentication prototype keeps the presentation aligned with the code that exists today.
 
-```
-winter-cloud-dispatch-system/
-public/             Static assets and HTML shell
-src/                React components, hooks, and TypeScript modules
-Dockerfile          Container build definition
-package.json        Dependencies and scripts
-tsconfig.json       TypeScript compiler configuration
-yarn.lock           Locked dependency versions
+## Architecture
+
+```mermaid
+flowchart LR
+    UI["React + TypeScript UI"] --> STORE["MobX auth store"]
+    STORE --> AMPLIFY["AWS Amplify Auth"]
+    AMPLIFY --> COGNITO["Amazon Cognito user pool"]
+    DOCKER["Multi-stage Docker build"] -. packages .-> UI
 ```
 
-## Getting Started
+## Run locally
 
-### Prerequisites
-
-- Node.js 18 or later
-- Yarn
-- Docker (optional, for container builds)
-
-### Installation
+Requires Node.js 20+ and an AWS Cognito user pool configured for the authentication flow used by the project.
 
 ```bash
 git clone https://github.com/beaprogram/Winter-Cloud-Dispatch-System.git
 cd Winter-Cloud-Dispatch-System
-yarn install
-```
-
-### Running Locally
-
-```bash
+yarn install --frozen-lockfile
 yarn start
 ```
 
-The application will be available at http://localhost:3000.
+The current Cognito pool identifiers live in `src/auth/amplifyConfig.ts`. For a reusable deployment, replace them with identifiers for your own pool and avoid adding client secrets to a browser application.
 
-### Building for Production
+## Build and container
 
 ```bash
 yarn build
+
+docker build -t winter-cloud-dispatch-system .
+docker run --rm -p 8080:80 winter-cloud-dispatch-system
 ```
 
-### Running with Docker
+Open `http://localhost:8080` for the containerized build.
+
+## Verification
+
+GitHub Actions runs a locked dependency install and production build on pull requests and pushes to `main`.
 
 ```bash
-docker build -t winter-cloud-dispatch-system .
-docker run -p 3000:3000 winter-cloud-dispatch-system
+yarn install --frozen-lockfile
+yarn build
 ```
 
-## Available Scripts
+## Roadmap
 
-| Command | Description |
-| --- | --- |
-| `yarn start` | Run the development server |
-| `yarn test` | Run the test suite |
-| `yarn build` | Generate an optimized production build |
+If this project continues, the next meaningful milestone is a small, tested dispatch domain: create a job, assign a driver, transition status, and display an audit trail. Add that behavior before expanding the README's product claims.
 
-## Author
+## License
 
-Developed by Arup Halder. For questions or collaboration, please reach out through GitHub.
+No open-source license has been selected.
